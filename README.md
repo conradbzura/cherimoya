@@ -1,13 +1,15 @@
-
-
-# Cherimoya
+<img src="https://github.com/jmschrei/cherimoya/blob/main/imgs/cherimoya.png">
 
 > [!IMPORTANT]
 > Cherimoya is still under active development and may change in ways that are not back compatible. Please make note of the version you are using in case you need to return to it in the future.
 
 Cherimoya is a lightweight genomic sequence-to-function (S2F) model for predicting genomic modalities such as transcription factor binding, chromatin accessibility, and transcription initiation. It builds on concepts that were first introduced by BPNet and ChromBPNet while introducing architectural, algorithmic, and systems-level improvements intended to improve training stability, efficiency, and predictive performance. Despite using fewer than 5% of the parameters of many existing architectures and being able to run over 10x faster, Cherimoya achieves strong predictive performance across a range of tasks. 
 
+<img src="https://github.com/jmschrei/cherimoya/blob/main/imgs/cheri-model.png">
+
 The secret to its success is a new Cheri Block, which adapts the ConvNeXT block to the domain of noisy high-throughput genomics experiments. This block is comprised of a dilated depth-wise convolution, a layer norm, a projection into a higher-dimensional space, a GeLU non-linearity, a projection back into the original dimensionality, and then a channel-wise scaling for robustness. Conceptually, this means that the blocks first aggregate information spatially but independently for each feature/channel (the depth-wise convolution) and then aggregate information across features but independently for each position (the two projections). The dilated depth-wise convolution and the layer norm have been fused into an efficient custom GPU kernel that is ~2-3x faster than the native PyTorch implementation.
+
+<img src="https://github.com/jmschrei/cherimoya/blob/main/imgs/cheri-block.png">
 
 ---
 
@@ -25,11 +27,14 @@ Cherimoya uses the Muon optimizer when training the projection layers, and the A
 ### End-to-End Pipeline
 Cherimoya provides an integrated pipeline covering:
 
-- raw data preprocessing
-- dataset construction
+- BAM/SAM/fragment file conversion using bam2bw
+- Peak calling using MACS3
 - model training
 - evaluation
-- downstream analysis and visualization
+- downstream analysis and motif discovery using TF-MoDISco
+
+<img src="https://github.com/jmschrei/cherimoya/blob/main/imgs/pipeline.png">
+  
 
 This design supports reproducible end-to-end experiments and reduces the overhead associated with managing separate tooling for each stage.
 
