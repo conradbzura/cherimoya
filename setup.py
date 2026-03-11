@@ -14,14 +14,15 @@ setup(
         "numpy >= 1.14.2",
         "scipy >= 1.0.0",
         "pandas >= 1.3.3",
-        "torch >= 1.9.0",
+        "torch >= 2.6.0",
         "h5py >= 3.7.0",
         "tqdm >= 4.64.1",
         "seaborn >= 0.11.2",
         "modisco >= 2.0.0",
         "tangermeme >= 0.2.3",
 		"macs3",
-        "bam2bw",
-		"bpnet-lite"
+        "bam2bw >= 0.4.1",
+		"bpnet-lite >= 1.0.0",
+        "triton >= 3.5.1"
     ],
 )

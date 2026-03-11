@@ -16,9 +16,6 @@ import torch
 from .losses import MNLLLoss
 from .losses import log1pMSELoss
 
-from sklearn.metrics import average_precision_score
-from sklearn.metrics import roc_auc_score
-
 
 def smooth_gaussian1d(x, kernel_sigma, kernel_width):
 	"""Smooth a signal along the sequence length axis.
@@ -387,6 +384,9 @@ def calculate_performance_measures(logps, true_counts, pred_log_counts,
 		the shape (1,).
 	"""
 
+	from sklearn.metrics import average_precision_score
+	from sklearn.metrics import roc_auc_score
+	
 	if labels is not None:
 		in_peaks = labels == 1
 		
@@ -405,8 +405,8 @@ def calculate_performance_measures(logps, true_counts, pred_log_counts,
 			"within_peak_" + key: value for key, value in measures_.items()
 		}
 
-		measures['auprc'] = average_precision_score(labels, pred_log_counts[:, 0])
-		measures['auroc'] = roc_auc_score(labels, pred_log_counts[:, 0])
+		measures_['auprc'] = average_precision_score(labels, pred_log_counts[:, 0])
+		measures_['auroc'] = roc_auc_score(labels, pred_log_counts[:, 0])
 		
 	else:
 		measures_ = {}

@@ -9,7 +9,6 @@ architecture for predicting genomic modalities from sequence alone.
 import h5py
 import time 
 import numpy
-import torch
 
 import torch
 import torch.nn as nn
@@ -28,9 +27,6 @@ from tqdm import tqdm
 
 from tangermeme.predict import predict
 from bpnetlite.logging import Logger
-
-torch.backends.cudnn.benchmark = True	
-torch.set_float32_matmul_precision('high')
 
 
 def autotune_configs():
@@ -303,7 +299,7 @@ class CheriBlock2(torch.nn.Module):
 		self.dilation = dilation
 
 		self.conv = torch.nn.Conv1d(n_filters, n_filters, groups=n_filters, dilation=dilation, padding=dilation, kernel_size=3)
-		#self.norm = torch.nn.LayerNorm((n_filters, 2114), elementwise_affine=False, bias=False, eps=1e-3)		
+		self.norm = torch.nn.LayerNorm((n_filters, 2114), elementwise_affine=False, bias=False, eps=1e-3)		
 		self.linear1 = torch.nn.Conv1d(n_filters, 3*n_filters, kernel_size=1, bias=False)
 		self.linear2 = torch.nn.Conv1d(3*n_filters, n_filters, kernel_size=1, bias=False)
 		self.gamma = torch.nn.Parameter(torch.ones(n_filters, 1) * eps) 
