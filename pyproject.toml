@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cherimoya"
+version = "0.0.1"
+description = "A light-weight deep learning architecture that uses modern optimization tricks to achieve strong predictive performance."
+license = "MIT"
+authors = [
+    { name = "Jacob Schreiber", email = "jmschreiber91@gmail.com" },
+]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.14.2",
+    "scipy>=1.0.0",
+    "pandas>=1.3.3",
+    "torch>=2.6.0",
+    "h5py>=3.7.0",
+    "tqdm>=4.64.1",
+    "seaborn>=0.11.2",
+    "modisco>=2.0.0",
+    "tangermeme>=0.2.3",
+    "macs3",
+    "bam2bw>=0.4.1",
+    "bpnet-lite>=1.0.0",
+    "triton>=3.5.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/jmschrei/cherimoya"
+
+[tool.setuptools]
+packages = ["cherimoya"]
+script-files = ["cli/cherimoya"]
